@@ -67,3 +67,23 @@ function viewDepartments() {
     })
     .then(() => init());
 }
+
+function viewRoles() {
+  db.findAllRoles()
+    .then(([rows]) => {
+      let roles = rows;
+      console.log("\n");
+      console.table(roles);
+    })
+    .then(() => init());
+}
+
+function viewEmployees() {
+    db.findAllEmployees()
+      .then(([rows]) => {
+        let employees = rows;
+        console.log("\n");
+        console.table(employees);
+      })
+      .then(() => init());
+}
