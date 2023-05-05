@@ -111,7 +111,7 @@ function addRole() {
       }));
       prompt([
         {
-          name: "name",
+          name: "title",
           message: "Enter the name of the role"
         },
         {
@@ -120,15 +120,82 @@ function addRole() {
         },
         {
           type: "list",
-          name: "department",
+          name: "department_id",
           message: "Select the department the role belongs to",
           choices: departments
         }
       ])
         .then(role => {
           db.createRole(role)
-            .then(() => console.log(`${role.name} role added to database!`))
+            .then(() => console.log(`${role.title} role added to database!`))
             .then(() => init())
+        })
+    })
+}
+
+function addEmployee() {
+  prompt([
+    {
+      name: "first_name",
+      message: "Enter the employee's first name"
+    },
+    {
+      name: "last_name",
+      message: "Enter the employee's last name"
+    }
+  ])
+    .then(res => {
+      let firstName = res.first_name;
+      let lastName = res.last_name;
+
+      db.findAllRoles()
+        .then(([rows]) => {
+          const roles = rows.map(({ id, title }) => ({
+            name: title,
+            value: id
+          }));
+
+          prompt({
+            type: "list",
+            name: "roleId",
+            message: "What is the employee's role?",
+            choices: roles
+          })
+            .then(res => {
+              let roleId = res.roleId;
+
+              db.findAllEmployees()
+                .then(([rows]) => {
+                  let employees = rows;
+                  const managers = employees.map(({ id, first_name, last_name }) => ({
+                    name: `${first_name} ${last_name}`,
+                    value: id
+                  }));
+
+                  managers.unshift({ name: "None", value: null });
+
+                  prompt({
+                    type: "list",
+                    name: "managerId",
+                    message: "Select the employee's manager",
+                    choices: managers
+                  })
+                    .then(res => {
+                      let employee = {
+                        manager_id: res.managerId,
+                        role_id: roleId,
+                        first_name: firstName,
+                        last_name: lastName
+                      }
+
+                      db.createEmployee(employee);
+                    })
+                    .then(() => console.log(
+                      `${firstName} ${lastName} added to database!`
+                    ))
+                    .then(() => init())
+                })
+            })
         })
     })
 }
