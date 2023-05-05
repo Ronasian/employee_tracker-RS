@@ -87,3 +87,17 @@ function viewEmployees() {
       })
       .then(() => init());
 }
+
+function addDepartment() {
+  prompt([
+    {
+      name: "name",
+      message: "Enter the name of the department"
+    }
+  ])
+    .then(res => {
+      db.createDepartment(res)
+        .then(() => console.log(`${res.name} department added to database!`))
+        .then(() => init())
+    })
+}
