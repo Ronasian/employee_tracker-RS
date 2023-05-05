@@ -38,5 +38,22 @@ function init() {
           }
         ]
       }
-  ])
+  ]).then(res => {
+    let choice = res.choice;
+    if (choice === "VIEW_DEPARTMENTS") {
+        viewDepartments();
+    } else if (choice === "VIEW_ROLES") {
+        viewRoles();
+    } else if (choice === "VIEW_EMPLOYEES") {
+        viewEmployees();
+    } else if (choice === "ADD_DEPARTMENT") {
+        addDepartment();
+    } else if (choice === "ADD_ROLE") {
+        addRole();
+    } else if (choice === "ADD_EMPLOYEE") {
+        addEmployee();
+    } else {
+        updateEmployeeRole();
+    }
+  })
 }
