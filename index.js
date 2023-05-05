@@ -101,3 +101,34 @@ function addDepartment() {
         .then(() => init())
     })
 }
+
+function addRole() {
+  db.findAllDepartments()
+    .then(([rows]) => {
+      const departments = rows.map(({ id, name }) => ({
+        name: name,
+        value: id
+      }));
+      prompt([
+        {
+          name: "name",
+          message: "Enter the name of the role"
+        },
+        {
+          name: "salary",
+          message: "Enter the salary of the role"
+        },
+        {
+          type: "list",
+          name: "department",
+          message: "Select the department the role belongs to",
+          choices: departments
+        }
+      ])
+        .then(role => {
+          db.createRole(role)
+            .then(() => console.log(`${role.name} role added to database!`))
+            .then(() => init())
+        })
+    })
+}
