@@ -1,7 +1,7 @@
 # Challenge 12: Employee Tracker
 
 ## Description
-This app 
+This application will be used to manage an employee database and is using using Node.js, Inquirer, and MySQL. It will emulate a user interface that allows users to easily interact with a database of employees and their department, roles, and salary. Users will be able to view data tables in the terminal, as well as add new values to them.
 
 ## User Story
 
@@ -32,7 +32,9 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
-## Walkthrough
+
+## Images
+![initial-dash](./assets/images/employeetracker.jpg)
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
